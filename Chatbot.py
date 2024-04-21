@@ -67,18 +67,19 @@ def chatbot():
             user_msg.write(user_text)
 
             with st.spinner("Getting Answer..."):
-                retriever = st.session_state.book_docsearch.as_retriever(search_type="similarity", search_kwargs={"k":3})
+                # No of chunks the search should retrieve from the db
+                chunks_to_retrieve = 3
+                retriever = st.session_state.book_docsearch.as_retriever(search_type="similarity", search_kwargs={"k":chunks_to_retrieve})
 
                 ## RetrievalQA Chain ##
                 qa = RetrievalQA.from_llm(llm=llm, retriever=retriever, verbose=True)
                 answer = qa({"query": prompt})["result"]
-                    
                 computer_text = f'''{answer}'''
                 computer_msg = st.chat_message("ai", avatar="✨") 
                 computer_msg.write(computer_text)
                 
                 # Showing chunks with score
-                doc_score = st.session_state.book_docsearch.similarity_search_with_score(prompt, k=3)
+                doc_score = st.session_state.book_docsearch.similarity_search_with_score(prompt, k=chunks_to_retrieve)
                 with st.popover("See chunks..."):
                     st.write(doc_score)
                 # Adding current conversation to the list.

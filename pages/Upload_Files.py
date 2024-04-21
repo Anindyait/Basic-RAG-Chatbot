@@ -35,6 +35,54 @@ def read_pdf(files):
         
     return file_content
 
+def store_index(uploaded_file, index_option, file_names):
+                # If index exists
+            if os.path.exists(f"db/{index_option}/index.faiss"):
+                st.toast(f"Storing in **existing index** :green[**{index_option}**]...", icon = "🗂️")
+                # Opening JSON file
+                with open(f'db/{index_option}/desc.json', 'r') as openfile:
+                    description = json.load(openfile)
+                    description["file_names"] = file_names + description["file_names"]
+                
+                with st.spinner("Processing..."):
+                    #Read the pdf file
+                    file_content = read_pdf(uploaded_file)
+                    #Create document chunks
+                    book_documents = recursive_text_splitter.create_documents([file_content])
+                    # Limit the no of characters
+                    book_documents = [Document(page_content = text.page_content.replace("\n", " ").replace(".", "").replace("-", "")) for text in book_documents]
+                    docsearch = FAISS.from_documents(book_documents, embeddings)
+                    old_docsearch = FAISS.load_local(f"db/{index_option}", embeddings, allow_dangerous_deserialization=True)
+                    docsearch.merge_from(old_docsearch)
+                    docsearch.save_local(f"db/{index_option}")
+                    # Write the json file
+                    with open(f"db/{index_option}/desc.json", "w") as outfile:
+                        json.dump(description, outfile)
+
+            # If index does not exist
+            else:         
+                st.toast(f"Storing in **new index** :green[**{index_option}**]...", icon="🗂️")
+
+                with st.spinner("Processing..."):
+                    #Read the pdf file
+                    file_content = read_pdf(uploaded_file)
+                    #Create document chunks
+                    book_documents = recursive_text_splitter.create_documents([file_content])
+                    # Limit the no of characters, remove \n
+                    book_documents = [Document(page_content = text.page_content.replace("\n", " ").replace(".", "").replace("-", "")) for text in book_documents]
+                    docsearch = FAISS.from_documents(book_documents, embeddings)
+                    
+                    docsearch.save_local(f"db/{index_option}")
+                    # Read json file
+                    with open(f'db/{index_option}/desc.json', 'r') as openfile:
+                        description = json.load(openfile)
+                        description["file_names"] = file_names + description["file_names"]
+                    # Write the json file
+                    with open(f"db/{index_option}/desc.json", "w") as outfile:
+                        json.dump(description, outfile)
+
+            st.success(f"Successfully added to **{description['name']}**!")
+
 
 recursive_text_splitter = RecursiveCharacterTextSplitter(
     chunk_size=2000,
@@ -84,60 +132,14 @@ def main():
 
         
         if st.button("Store", type="primary"):
-            # If index exists
-            if os.path.exists(f"db/{index_option}/index.faiss"):
-                st.toast(f"Storing in **existing index** :green[**{index_option}**]...", icon = "🗂️")
-                # Opening JSON file
-                with open(f'db/{index_option}/desc.json', 'r') as openfile:
-                    description = json.load(openfile)
-                    description["file_names"] = file_names + description["file_names"]
-                
-                with st.spinner("Processing..."):
-                    #Read the pdf file
-                    file_content = read_pdf(uploaded_file)
-                    #Create document chunks
-                    book_documents = recursive_text_splitter.create_documents([file_content])
-                    # Limit the no of characters
-                    book_documents = [Document(page_content = text.page_content.replace("\n", " ").replace(".", "").replace("-", "")) for text in book_documents]
-
-                   
-                    
-                    docsearch = FAISS.from_documents(book_documents, embeddings)
-                    old_docsearch = FAISS.load_local(f"db/{index_option}", embeddings, allow_dangerous_deserialization=True)
-                    docsearch.merge_from(old_docsearch)
-                    docsearch.save_local(f"db/{index_option}")
-                    # Write the json file
-                    with open(f"db/{index_option}/desc.json", "w") as outfile:
-                        json.dump(description, outfile)
-
-            # If index does not exist
-            else:         
-                st.toast(f"Storing in **new index** :green[**{index_option}**]...", icon="🗂️")
-
-                with st.spinner("Processing..."):
-                    #Read the pdf file
-                    file_content = read_pdf(uploaded_file)
-                    #Create document chunks
-                    book_documents = recursive_text_splitter.create_documents([file_content])
-                    # Limit the no of characters, remove \n
-                    book_documents = [Document(page_content = text.page_content.replace("\n", " ").replace(".", "").replace("-", "")) for text in book_documents]
-                    docsearch = FAISS.from_documents(book_documents, embeddings)
-                    
-                    docsearch.save_local(f"db/{index_option}")
-                    # Read json file
-                    with open(f'db/{index_option}/desc.json', 'r') as openfile:
-                        description = json.load(openfile)
-                        description["file_names"] = file_names + description["file_names"]
-                    # Write the json file
-                    with open(f"db/{index_option}/desc.json", "w") as outfile:
-                        json.dump(description, outfile)
-
-            st.success(f"Successfully added to **{description['name']}**!")
+            # Store index in local storage
+            store_index(uploaded_file, index_option, file_names)
             
     
     st.title("\n\n\n")
-    st.subheader("💽 Stored Indices", help="💽 See all the indices you have previously stored.")
     
+    # Show already stored indices
+    st.subheader("💽 Stored Indices", help="💽 See all the indices you have previously stored.")
     with st.expander("🗂️ See existing indices"):
         st.divider()
         if len(st.session_state.existing_indices) == 0:
