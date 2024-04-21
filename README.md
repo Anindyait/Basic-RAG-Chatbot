@@ -14,7 +14,7 @@ This is a basic RAG chatbot made using LangChain, Streamlit, FAISS, Cohere's emb
 2. Create and activate virtual environment
 ```sh
 python -m venv .venv
-myenv\Scripts\activate
+.venv\Scripts\activate
 ```
 ##
  3. Install Requirements
@@ -24,7 +24,7 @@ myenv\Scripts\activate
 pip install -r requirements.txt
 ```
 ##
-4. Go to Chatbot.py > right-click on *ChatCohere()* > *Go to Definition* >  Comment out ```"token_count": response.token_count,``` *(Line No. 194)*
+4. Go to Chatbot.py > right-click on *ChatCohere()* > *Go to Definition* >  Comment out the line ```"token_count": response.token_count,``` 
 ##
 
 5. Create a ```.env``` file and put your Cohere API key as *COHERE_API_KEY* and OpenAI API key as *OPENAI_API_KEY*
