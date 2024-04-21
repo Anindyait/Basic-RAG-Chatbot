@@ -49,8 +49,8 @@ COHERE_API_KEY=[YOUR COHERE API KEY GOES HERE]
 ## Use
 
 - Navigate to ***Upload Files*** in the sidebar to upload your own PDFs (make sure the PDFs are readable)
-![Upload](images/Upload.png)
+![Upload](images/Upload_File.png)
 - Store the uploaded PDFs in a new or existing index.
-- Navigate to ***Chatbot*** and select the desired index.
+- Navigate to ***Chatbot*** and select the desired index (An index on the book Metamorphosis is already created).
 - And ask questions to the chatbot.
 ![Chatbot](images/Chatbot.png)
