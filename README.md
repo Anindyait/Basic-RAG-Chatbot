@@ -26,8 +26,8 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 ##
-4. Go to ```.venv\Lib\site-packages\langchain_community\chat_models\cohere.py```
-And comment out the line ```"token_count": response.token_count,```
+4. Go to ```\.venv\Lib\site-packages\langchain_community\chat_models```
+Open **cohere.py** and comment out the line ```"token_count": response.token_count,```
 ##
 
 5. Create a ```.env``` file and put your Cohere API key as *COHERE_API_KEY* and OpenAI API key as *OPENAI_API_KEY*
