@@ -1,8 +1,7 @@
-# RAG-Basics
+# Basic-RAG-Chatbot
  
 This is a basic RAG chatbot made using LangChain, Streamlit, FAISS, Cohere's embed-english-v3.0 and OpenAI's gpt-3.5-turbo or Cohere's command-r
 
----
 #
 ## Setup
 1.  Clone the repo
@@ -28,6 +27,8 @@ pip install -r requirements.txt
 ##
 
 5. Create a ```.env``` file and put your Cohere API key as *COHERE_API_KEY* and OpenAI API key as *OPENAI_API_KEY*
+[Cohere API Key](https://dashboard.cohere.com/api-keys)
+[OpenAI API Key](https://platform.openai.com/api-keys)
 
 ```sh
 OPENAI_API_KEY=[YOUR OPENAI API KEY GOES HERE]
