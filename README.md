@@ -5,7 +5,7 @@ This is a basic RAG chatbot made using LangChain, Streamlit, FAISS, Cohere's emb
 #
 ## Setup
 
-Using ```Python 3.11```
+Worked with ```Python 3.11``` anything above will probably work.
 
 1.  Clone the repo
 
@@ -27,11 +27,12 @@ pip install -r requirements.txt
 ```
 ##
 4. Go to ```\.venv\Lib\site-packages\langchain_community\chat_models```
-Open **cohere.py** and comment out the line ```"token_count": response.token_count,```
+Open ```cohere.py``` and comment out the line ```"token_count": response.token_count,```
 ##
 
 5. Create a ```.env``` file and put your Cohere API key as *COHERE_API_KEY* and OpenAI API key as *OPENAI_API_KEY*
 [Cohere API Key](https://dashboard.cohere.com/api-keys)
+
 [OpenAI API Key](https://platform.openai.com/api-keys)
 
 ```sh
