@@ -31,15 +31,14 @@ Open ```cohere.py``` and comment out the line ```"token_count": response.token_c
 ##
 
 5. Create a ```.env``` file and put your Cohere API key as *COHERE_API_KEY* and OpenAI API key as *OPENAI_API_KEY*
-[Cohere API Key](https://dashboard.cohere.com/api-keys)
-
+[Cohere API Key](https://dashboard.cohere.com/api-keys) and
 [OpenAI API Key](https://platform.openai.com/api-keys)
 
 ```sh
 OPENAI_API_KEY=[YOUR OPENAI API KEY GOES HERE]
 COHERE_API_KEY=[YOUR COHERE API KEY GOES HERE]
 ```
-*The OPENAI_API_KEY is not used by default. The chatbot uses Cohere's command-r by default.*
+*The OPENAI_API_KEY is not used by default. The chatbot uses Cohere's embed-english-v3.0 and command-r by default.*
 
 ##
 6. Run Chatbot.py
