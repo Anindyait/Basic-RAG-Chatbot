@@ -5,7 +5,7 @@ This is a basic RAG chatbot made using LangChain, Streamlit, FAISS, Cohere's emb
 #
 ## Setup
 
-Using ```Python 3.11.8```
+Using ```Python 3.11```
 
 1.  Clone the repo
 
