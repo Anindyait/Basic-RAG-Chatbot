@@ -49,6 +49,8 @@ COHERE_API_KEY=[YOUR COHERE API KEY GOES HERE]
 ## Use
 
 - Navigate to ***Upload Files*** in the sidebar to upload your own PDFs (make sure the PDFs are readable)
+![Upload](images/Upload.png)
 - Store the uploaded PDFs in a new or existing index.
 - Navigate to ***Chatbot*** and select the desired index.
 - And ask questions to the chatbot.
+![Chatbot](images/Chatbot.png)
