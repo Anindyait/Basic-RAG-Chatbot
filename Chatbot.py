@@ -68,7 +68,7 @@ def chatbot():
 
             with st.spinner("Getting Answer..."):
                 # No of chunks the search should retrieve from the db
-                chunks_to_retrieve = 3
+                chunks_to_retrieve = 5
                 retriever = st.session_state.book_docsearch.as_retriever(search_type="similarity", search_kwargs={"k":chunks_to_retrieve})
 
                 ## RetrievalQA Chain ##
