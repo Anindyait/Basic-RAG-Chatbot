@@ -1,4 +1,4 @@
-# Basic-RAG-Chatbot
+# 💬 Basic-RAG-Chatbot
  
 This is a basic RAG chatbot made using LangChain, Streamlit, FAISS, Cohere's embed-english-v3.0 and OpenAI's gpt-3.5-turbo or Cohere's command-r
 
